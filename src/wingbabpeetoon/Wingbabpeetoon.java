@@ -27,11 +27,11 @@ class panel extends JPanel implements KeyListener, ActionListener {
     Clip clip2;
     AudioInputStream audioinput;
     AudioInputStream audioinput2;
-    int bgx1, bgx2, bgx3, way, bgy;
+    int bgx1, bgx2, bgx3,bgx4,bgxbox, way, bgy;
     int hu, hu1, sp, walk, walk1, x, x1, up, up1, bl, bl1, br, br1, upb, way1;
     int score, count;
-    BufferedImage image1;
-    BufferedImage image2;
+    BufferedImage imagebg1,imagebg2,imagebg3,imagebg4;
+    BufferedImage imagebox;
     BufferedImage l1, l2, l3;
     BufferedImage r1, r2, r3;
     BufferedImage bulletL, bulletR, bulletBL, bulletBR;
@@ -61,8 +61,11 @@ class panel extends JPanel implements KeyListener, ActionListener {
         audioinput2 = AudioSystem.getAudioInputStream(sound2);
         clip.open(audioinput);
         clip2.open(audioinput2);
-        this.image1 = ImageIO.read(new File("C:\\Users\\user\\Desktop\\Gamejava-master\\Lab5As1\\kk.jpg"));
-        this.image2 = ImageIO.read(new File("C:\\Users\\user\\Desktop\\Gamejava-master\\Lab5As1\\box.png"));
+        this.imagebg1 = ImageIO.read(new File("C:\\Users\\user\\Desktop\\Gamejava-master\\Lab5As1\\kk.jpg"));
+        this.imagebg2 = ImageIO.read(new File(""));
+        this.imagebg3 = ImageIO.read(new File(""));
+        this.imagebg4 = ImageIO.read(new File(""));
+        this.imagebox = ImageIO.read(new File("C:\\Users\\user\\Desktop\\Gamejava-master\\Lab5As1\\box.png"));
         
         this.l1 = ImageIO.read(new File("C:\\Users\\user\\Desktop\\Gamejava-master\\Lab5As1\\L1.png"));
         this.l2 = ImageIO.read(new File("C:\\Users\\user\\Desktop\\Gamejava-master\\Lab5As1\\L2.png"));
@@ -134,9 +137,11 @@ class panel extends JPanel implements KeyListener, ActionListener {
     public void paint(Graphics g) {
         super.paint(g);
 
-        g.drawImage(this.image1, bgx1, bgy, null);
-        g.drawImage(this.image1, bgx2, bgy, null);
-        g.drawImage(this.image2, bgx3 - way, bgy + 450, 100, 100, null);
+        g.drawImage(this.imagebg1, bgx1, bgy, null);
+        g.drawImage(this.imagebg2, bgx2, bgy, null);
+        g.drawImage(this.imagebg3, bgx3, bgy, null);
+        g.drawImage(this.imagebg4, bgx4, bgy, null);
+        g.drawImage(this.imagebox, bgxbox - way, bgy + 450, 100, 100, null);
 
         if (hu == 1) {
             if ((walk / 3) % 3 == 0) {
@@ -182,7 +187,7 @@ class panel extends JPanel implements KeyListener, ActionListener {
             bullet = false;
             bl = 0;
             br = 50;           
-            x1 = bgx3 - way + 50;
+            x1 = bgxbox - way + 50;
             
         } 
         if (score < 0) {
@@ -306,7 +311,7 @@ class panel extends JPanel implements KeyListener, ActionListener {
                 hu = 1;
                 walk++;
 
-                if (way + x + 80 >= bgx3 + 160 && way + x + 80 <= bgx3 + 165) {
+                if (way + x + 80 >= bgxbox + 160 && way + x + 80 <= bgxbox + 165) {
                     //System.out.println(way + x + 80);
 
                     clip2.start();
@@ -343,7 +348,7 @@ class panel extends JPanel implements KeyListener, ActionListener {
                 hu = 2;
                 walk++;
                 score++;
-                if (way + x + 80 <= bgx3 && way + x + 80 >= bgx3 - 5) {
+                if (way + x + 80 <= bgxbox && way + x + 80 >= bgxbox - 5) {
 
                     clip2.start();
                 } else {
@@ -428,7 +433,7 @@ class panel extends JPanel implements KeyListener, ActionListener {
                 u = false;
                 down = true;
             }
-            if (way + x + 80 >= bgx3 && bgy >= 400) {
+            if (way + x + 80 >= bgxbox && bgy >= 400) {
                 jumpr = false;
                 u = false;
                 down = true;
@@ -447,7 +452,7 @@ class panel extends JPanel implements KeyListener, ActionListener {
                 if (bgx2 <= -800) {
                     bgx2 = 800;
                 }
-                if (way + x + 80 >= bgx3 && way + x + 80 <= bgx3 + 160) {
+                if (way + x + 80 >= bgxbox && way + x + 80 <= bgxbox + 160) {
                     point = true;
                 }
             }
@@ -475,7 +480,7 @@ class panel extends JPanel implements KeyListener, ActionListener {
                 if (bgx2 >= 800) {
                     bgx2 = -800;
                 }
-                if (way + x + 80 >= bgx3 && way + x + 80 <= bgx3 + 160) {
+                if (way + x + 80 >= bgxbox && way + x + 80 <= bgxbox + 160) {
                     point = true;
                 }
             }
@@ -490,12 +495,12 @@ class panel extends JPanel implements KeyListener, ActionListener {
 
             } else {
 
-                if (up == 300 && (way + x + 80 >= bgx3 && way + x + 80 <= bgx3 + 160)) {
+                if (up == 300 && (way + x + 80 >= bgxbox && way + x + 80 <= bgxbox + 160)) {
                     down = false;
                     l = false;
                     r = false;
 
-                } else if (way + x + 80 == bgx3 || way + x + 80 == bgx3 + 160) {
+                } else if (way + x + 80 == bgxbox || way + x + 80 == bgxbox + 160) {
                     up += 5;
 
                 } else {
@@ -521,7 +526,7 @@ class panel extends JPanel implements KeyListener, ActionListener {
             bL = true;
         }
         if (bL == true) {
-            if (x + bl <= 0 || x + bl >= bgx3 - way + 80 && x + bl <= bgx3 - way + 90 && up >= 300 || x + bl >= x1 - way && x + bl <= x1 - way + 50 && up >= 350) {
+            if (x + bl <= 0 || x + bl >= bgxbox - way + 80 && x + bl <= bgxbox - way + 90 && up >= 300 || x + bl >= x1 - way && x + bl <= x1 - way + 50 && up >= 350) {
                 bL = false;
                 b = false;
                 bullet = false;
@@ -536,7 +541,7 @@ class panel extends JPanel implements KeyListener, ActionListener {
 
         }
         if (bR == true) {
-            if (x + br >= 800 || x + br >= bgx3 - way - 30 && x + br <= bgx3 - way - 20 && up >= 300 || x + br >= x1 && x + br <= x + 10 || x + br >= x1 - way && x + br <= x1 - way + 100 && up >= 350) {
+            if (x + br >= 800 || x + br >= bgxbox - way - 30 && x + br <= bgxbox - way - 20 && up >= 300 || x + br >= x1 && x + br <= x + 10 || x + br >= x1 - way && x + br <= x1 - way + 100 && up >= 350) {
                 bR = false;
                 b = false;
                 bullet = false;
@@ -549,7 +554,7 @@ class panel extends JPanel implements KeyListener, ActionListener {
         if (hu1 == 1) {
             x1--;
             walk1++;
-            if ((x1 - way) + bl1 <= 0 || (x1 - way) + bl1 >= bgx3 - way + 80 && (x1 - way) + bl1 <= bgx3 - way + 90) {
+            if ((x1 - way) + bl1 <= 0 || (x1 - way) + bl1 >= bgxbox - way + 80 && (x1 - way) + bl1 <= bgxbox - way + 90) {
                 bl1 = 0;
             } else if ((x1 - way) + bl1 >= x && (x1 - way) + bl1 <= x + 50) {
                 point1 = true;
@@ -557,7 +562,7 @@ class panel extends JPanel implements KeyListener, ActionListener {
             } else {
                 bl1 -= 10;
             }
-            if (way + (x1 - way) + 80 >= bgx3 + 160 && way + (x1 - way) + 80 <= bgx3 + 165) {
+            if (way + (x1 - way) + 80 >= bgxbox + 160 && way + (x1 - way) + 80 <= bgxbox + 165) {
                 hu1 = 2;
             }
         }
